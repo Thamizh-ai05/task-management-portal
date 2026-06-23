@@ -24,12 +24,17 @@ const createTask = (req, res) => {
         });
     }
 
-    if (description.length < 20) {
-        return res.status(400).json({
-            message: "Description minimum 20 characters"
-        });
-    }
+    if (
+    description &&
+    description.trim() !== "" &&
+    description.length < 20
+) {
+    return res.status(400).json({
+        message:
+            "Description should contain at least 20 characters"
+    });
 
+}
     Task.createTask(
         { title, description, status },
         (err, result) => {

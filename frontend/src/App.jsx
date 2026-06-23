@@ -1,57 +1,53 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
 
 import {
-    BrowserRouter,
-    Routes,
-    Route,
-    Link
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
 } from "react-router-dom";
 
+import Navbar from "./components/Navbar";
 import Dashboard from "./pages/Dashboard";
 import AddTask from "./pages/AddTask";
-import Navbar from "./components/Navbar";
 
 function App() {
+  return (
+    <BrowserRouter>
+      <div className="app-container">
 
-    return (
-        <BrowserRouter>
+        <Navbar />
 
-            <Navbar />
+        <div className="container mt-4">
 
-            <div className="container mt-3">
+          <Routes>
 
-                <Link
-                    to="/"
-                    className="btn btn-secondary me-2"
-                >
-                    Dashboard
-                </Link>
+            {/* Default Page */}
+            <Route
+              path="/"
+              element={<Dashboard />}
+            />
 
-                <Link
-                    to="/add"
-                    className="btn btn-primary"
-                >
-                    Add Task
-                </Link>
+            {/* Add Task */}
+            <Route
+              path="/add-task"
+              element={<AddTask />}
+            />
 
-            </div>
+            {/* Invalid Route Redirect */}
+            <Route
+              path="*"
+              element={<Navigate to="/" replace />}
+            />
 
-            <Routes>
+          </Routes>
 
-                <Route
-                    path="/"
-                    element={<Dashboard />}
-                />
+        </div>
 
-                <Route
-                    path="/add"
-                    element={<AddTask />}
-                />
-
-            </Routes>
-
-        </BrowserRouter>
-    );
+      </div>
+    </BrowserRouter>
+  );
 }
 
 export default App;

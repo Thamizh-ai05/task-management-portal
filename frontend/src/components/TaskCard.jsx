@@ -1,38 +1,126 @@
-function TaskCard({ task, onComplete, onDelete }) {
+function TaskCard({
+    task,
+    onStartProgress,
+    onMarkCompleted,
+    onDelete
+}) {
+
+    const formatDate = (date) => {
+        return new Date(date).toLocaleString("en-IN", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit"
+        });
+    };
+
+    const getStatusBadge = () => {
+
+        switch (task.status) {
+
+            case "Pending":
+                return (
+                    <span className="badge bg-warning text-dark">
+                        Pending
+                    </span>
+                );
+
+            case "In Progress":
+                return (
+                    <span className="badge bg-primary">
+                        In Progress
+                    </span>
+                );
+
+            case "Completed":
+                return (
+                    <span className="badge bg-success">
+                        Completed
+                    </span>
+                );
+
+            default:
+                return (
+                    <span className="badge bg-secondary">
+                        Unknown
+                    </span>
+                );
+        }
+    };
 
     return (
-        <div className="card mb-3">
+        <div className="card task-card shadow-sm border-0 mb-3">
+
             <div className="card-body">
 
-                <h5>{task.title}</h5>
+                <div className="d-flex justify-content-between align-items-start">
 
-                <p>{task.description}</p>
+                    <h5 className="fw-bold">
+                        {task.title}
+                    </h5>
 
-                <p>
-                    <strong>Status:</strong> {task.status}
+                    {getStatusBadge()}
+
+                </div>
+
+                <hr />
+
+                <p className="text-muted">
+
+                    {task.description
+                        ? task.description
+                        : "No description provided."}
+
                 </p>
 
-                <p>
-                    <strong>Created:</strong>
+                <p className="small text-secondary mb-3">
+
+                    📅 Created:
                     {" "}
-                    {new Date(task.created_at).toLocaleString()}
+                    {formatDate(task.created_at)}
+
                 </p>
 
-                <button
-                    className="btn btn-success me-2"
-                    onClick={() => onComplete(task.id)}
-                >
-                    Complete
-                </button>
+                <div className="d-flex flex-wrap gap-2">
 
-                <button
-                    className="btn btn-danger"
-                    onClick={() => onDelete(task.id)}
-                >
-                    Delete
-                </button>
+                    {task.status === "Pending" && (
+                        <button
+                            className="btn btn-primary"
+                            onClick={() =>
+                                onStartProgress(task.id)
+                            }
+                        >
+                            🚀 Start Progress
+                        </button>
+                    )}
+
+                    {task.status === "In Progress" && (
+                        <button
+                            className="btn btn-success"
+                            onClick={() =>
+                                onMarkCompleted(task.id)
+                            }
+                        >
+                            ✅ Mark Completed
+                        </button>
+                    )}
+
+                    {task.status === "Completed" && (
+                        <button
+                            className="btn btn-danger"
+                            onClick={() =>
+                                onDelete(task.id)
+                            }
+                        >
+                            🗑 Delete
+                        </button>
+                    )}
+
+                </div>
 
             </div>
+
         </div>
     );
 }
