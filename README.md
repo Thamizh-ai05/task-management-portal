@@ -202,35 +202,6 @@ VITE_API_URL=http://localhost:3000
 
 ---
 
-## Installation
-
-### Clone Repository
-
-```bash
-git clone <repository-url>
-```
-
-### Backend Setup
-
-```bash
-cd backend
-
-npm install
-
-npm run dev
-```
-
-### Frontend Setup
-
-```bash
-cd frontend
-
-npm install
-
-npm run dev
-```
-
----
 
 ## Author
 
@@ -238,6 +209,6 @@ Thamizharasan K
 
 B.Tech Artificial Intelligence and Data Science
 
-Vel Tech Engineering College
+Vel Tech High Tech Dr Rangarajan Dr Sakunthala Engineering College
 
 Chennai, India
